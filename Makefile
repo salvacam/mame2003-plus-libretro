@@ -477,6 +477,18 @@ else ifeq ($(platform), rs90)
 	fpic := -fPIC -nostdlib
 	CFLAGS += -lm -march=mips32 -mtune=mips32
 
+# MIYOO
+else ifeq ($(platform), miyoo)
+	TARGET := $(TARGET_NAME)_libretro.so
+	CC = /opt/miyoo/usr/bin/arm-linux-gcc
+   	CXX = /opt/miyoo/usr/bin/arm-linux-g++
+   	AR = /opt/miyoo/usr/bin/arm-linux-ar
+	LDFLAGS += -shared -Wl,--version-script=link.T -Wl,-no-undefined
+	PLATCFLAGS += -D__GCW0__
+	LIBS := -lc -lgcc -lm
+	fpic := -fPIC -nostdlib
+	CFLAGS += -lm -march=armv5te -mtune=arm926ej-s
+
 # GCW0
 else ifeq ($(platform), gcw0)
 	TARGET := $(TARGET_NAME)_libretro.so
